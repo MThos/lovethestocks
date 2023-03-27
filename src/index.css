@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.App {
+  font-family: 'Nanum Gothic Coding', Tahoma, sans-serif !important;
+}
+
+.MuiAutocomplete-listbox {
+  padding: 0 !important;
+}
+
+.MuiAutocomplete-option {
+  background: #493e8e !important;
+  color: white;
+}
+
+.MuiAutocomplete-option:hover {
+  background: white !important;
+  color: black;
+}

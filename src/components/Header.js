@@ -1,4 +1,4 @@
-import React, { useState } from "react";  
+import React from "react";  
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
@@ -34,20 +34,25 @@ const Navbar = () => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && e.target.value.length > 0) {
-      localStorage.setItem('active', e.target.value.toUpperCase());
+      const ticker = e.target.value.substring(0, e.target.value.indexOf(":"));
+      localStorage.setItem('active', ticker.toUpperCase());
       e.target.value = "";
     }
   }
 
   const ticker_list = [
-    { symbol: 'AAPL' },
-    { symbol: 'MSFT' },
-    { symbol: 'KO' },
-    { symbol: 'NVDA' },
+    { symbol: 'AAPL', company: 'Apple' },
+    { symbol: 'MSFT', company: 'Microsoft' },
+    { symbol: 'KO', company: 'Coca Cola' },
+    { symbol: 'NVDA', company: 'Nvidia Corporation' },
   ];
 
+  const symbols = {
+    options: ticker_list.map((option) => option.symbol + ' : ' + option.company),
+  };
+
   return (
-    <div className="font-mono bg-dark-purple-700 text-light-purple-500 flex flex-row items-center justify-between">
+    <div className="font-custom bg-dark-purple-700 text-light-purple-500 flex flex-row items-center justify-between">
       <img className="w-16 ml-2" src="images/lovethestocks-min.png" alt="logo" />
 
       <Button
@@ -81,16 +86,18 @@ const Navbar = () => {
         sx={{
           '& .MuiMenu-paper': {
             border: '2px solid black',
-            background: '#493e8e',
-            color: 'white'
+            backgroundColor: '#493e8e',
+            color: 'white',
+            textTransform: 'uppercase'
           },
           '& .MuiMenuItem-root': {
             border: '1px solid black',
+            fontSize: 14,
             py: 0,
             px: 5 
           },
           '& .MuiMenuItem-root:hover': {
-            background: 'white',
+            backgroundColor: 'white',
             color: 'black'
           },
           '& .MuiList-root': {
@@ -138,9 +145,9 @@ const Navbar = () => {
         sx={{
           '& .MuiMenu-paper': {
             border: '2px solid black',
-            background: '#cac2f8',
+            backgroundColor: '#493e8e',
             color: 'white',
-            width: '50%'
+            width: '100%'
           },
           '& .MuiMenuItem-root': {
             border: 0,
@@ -148,9 +155,12 @@ const Navbar = () => {
             px: 0,
           },
           '& .MuiMenuItem-root:hover': {
-            background: '#cac2f8',
-            color: 'black',
+            backgroundColor: '#493e8e',
+            color: 'white',
             padding: 0
+          },
+          '& .MuiPaper-root': {
+            backgroundColor: '#493e8e'
           },
           '& .MuiList-root': {
             padding: 0
@@ -158,20 +168,36 @@ const Navbar = () => {
         }}
       >
         <MenuItem onKeyDown={e => handleKeyPress(e)}>
-          <Autocomplete sx={{ width: '100%' }}
-            freeSolo
+          <Autocomplete 
+            {...symbols}
             id="ticker-search"
-            disableClearable
-            options={ticker_list.map((option) => option.symbol)}
+            autoHighlight
+            sx={{
+              width: '100%',
+              "& .MuiInputBase-input": {
+                textTransform: 'uppercase',
+              },
+              "& .MuiAutocomplete-inputRoot": {
+                color: "white",
+              },
+              "& .MuiButtonBase-root": {
+                color: 'white'
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "black"
+              },
+              "& :hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+              "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white"
+              },
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label=""
-                placeholder="Ticker Symbol"
-                InputProps={{
-                  ...params.InputProps,
-                  type: 'search',
-                }}
+                placeholder="search a company"
               />
             )}
           />

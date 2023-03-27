@@ -38,7 +38,8 @@ module.exports = {
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
-      mono: ['Menlo', 'Consolas']
+      mono: ['Menlo', 'Consolas'],
+      custom: ['Nanum Gothic Coding', 'Menlo', 'sans-serif']
     },
     extend: {},
   },
