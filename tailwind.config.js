@@ -41,7 +41,11 @@ module.exports = {
       mono: ['Menlo', 'Consolas'],
       custom: ['Nanum Gothic Coding', 'Menlo', 'sans-serif']
     },
-    extend: {},
+    extend: {
+      animation: {
+        'spin-slow': 'spin 2s linear infinite'
+      }
+    },
   },
   plugins: [],
 }
