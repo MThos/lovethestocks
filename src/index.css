@@ -3,19 +3,40 @@
 @tailwind utilities;
 
 .App {
-  font-family: 'Nanum Gothic Coding', Tahoma, sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.MuiAutocomplete-listbox {
-  padding: 0 !important;
+.fade-in {
+  animation: fadeIn 1s;
+  -webkit-animation: fadeIn 1s;
 }
 
-.MuiAutocomplete-option {
-  background: #493e8e !important;
-  color: white;
+.fade-in-fast {
+  animation: fadeIn 200ms;
+  -webkit-animation: fadeIn 200ms;
 }
 
-.MuiAutocomplete-option:hover {
-  background: white !important;
-  color: black;
+.fade-in-slow {
+  animation: fadeIn 2s;
+  -webkit-animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
