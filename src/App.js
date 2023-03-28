@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
+import GlobalTheme from './components/GlobalTheme';
 import Header from './components/Header';
-import Theme from './components/Theme';
+import Details from './components/Details';
 
 const App = () => {
   const [active, setActive] = useState('AAPL');
@@ -18,9 +19,10 @@ const App = () => {
   }, [active]);
 
   return (
-    <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={GlobalTheme}>
       <div className="App bg-dark-purple-800">
         <Header />
+        <Details />
       </div>
     </ThemeProvider>    
   );
