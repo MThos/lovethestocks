@@ -13,6 +13,7 @@ const API_KEY = process.env.REACT_APP_API_KEY
 // MONGODB CONNECTION
 const mongo_address = process.env.REACT_APP_MONGO_ADDR
 const mongo_port = process.env.REACT_APP_MONGO_PORT
+mongoose.set("strictQuery", false);
 mongoose.connect(`mongodb://${mongo_address}:${mongo_port}/stocks?directConnection=true&serverSelectionTimeoutMS=2000`);
 const db = mongoose.connection;
 db.on('error', error => console.log(error));

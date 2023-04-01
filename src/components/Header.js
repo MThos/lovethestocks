@@ -1,4 +1,4 @@
-import React from "react";  
+import React, { useState } from "react";  
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
@@ -8,8 +8,11 @@ import { TextField } from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from "@emotion/react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
+  const [active, setActive] = useState('');
+
   // nav links
   const [anchorNavEl, setAnchorNavEl] = React.useState(null);
   const openNav = Boolean(anchorNavEl);
@@ -34,14 +37,6 @@ const Header = () => {
     setAnchorSearchEl(null);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter" && e.target.value.length > 0) {
-      const ticker = e.target.value.substring(0, e.target.value.indexOf(":"));
-      localStorage.setItem('active', ticker.toUpperCase());
-      e.target.value = "";
-    }
-  }
-
   const ticker_list = [
     { symbol: 'AAPL', company: 'Apple' },
     { symbol: 'MSFT', company: 'Microsoft' },
@@ -54,7 +49,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-dark-purple-700 text-light-purple-500 flex flex-row items-center justify-between">
+    <div className="bg-dark-purple-800 border-b-8 border-dark-purple-600 text-light-purple-500 flex flex-row items-center justify-between">
       <img className="w-16 ml-2" src="images/lovethestocks-min.png" alt="logo" />
 
       <Button
@@ -85,13 +80,13 @@ const Header = () => {
             horizontal: 'center',
           }}
           MenuListProps={{
-            'aria-labelledby': 'nav-menu',
+            'aria-labelledby': 'nav-menu', 
           }}
         >
-          <MenuItem onClick={handleNavClose}>Latest News</MenuItem>
+          <MenuItem onClick={handleNavClose}><Link to="/test">Latest News</Link></MenuItem>
           <MenuItem onClick={handleNavClose}>Index List</MenuItem>
           <MenuItem onClick={handleNavClose}>Charts</MenuItem>
-          <MenuItem onClick={handleNavClose}>Details</MenuItem>
+          <MenuItem onClick={handleNavClose}><Link to="/details">Details</Link></MenuItem>
           <MenuItem onClick={handleNavClose}>Financials</MenuItem>
           <MenuItem onClick={handleNavClose}>Analysis</MenuItem>
           <MenuItem onClick={handleNavClose}>Company</MenuItem>
@@ -127,9 +122,18 @@ const Header = () => {
             'aria-labelledby': 'basic-button',
           }}
         >
-          <MenuItem onKeyDown={e => handleKeyPress(e)}>
+          <MenuItem>
             <ThemeProvider theme={autocompleteMenuTheme}>
-              <Autocomplete 
+              <Autocomplete
+                onChange={(event, newValue) => {
+                  if (newValue) {
+                    setActive(newValue);
+                    const ticker = newValue.substring(0, newValue.indexOf(":")).trim().toUpperCase();
+                    localStorage.setItem('active', ticker);
+                    setActive(ticker.toUpperCase());
+                    window.location.reload(false);
+                  }
+                }}
                 {...symbols}
                 id="ticker-search"
                 autoHighlight

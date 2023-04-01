@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import GlobalTheme from './components/GlobalTheme';
 import Header from './components/Header';
 import Details from './components/Details';
+import Test from './components/Test';
+import Error from './components/Error';
 
 const App = () => {
   const [active, setActive] = useState('AAPL');
@@ -20,9 +23,16 @@ const App = () => {
 
   return (
     <ThemeProvider theme={GlobalTheme}>
-      <div className="App bg-dark-purple-800">
-        <Header />
-        <Details />
+      <div className="App">
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Details />} />
+            <Route path="/details" element={<Details />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </ThemeProvider>    
   );

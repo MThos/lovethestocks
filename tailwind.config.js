@@ -14,6 +14,9 @@ module.exports = {
       'black': '#000',
       'white': '#fff',
       'purple': '#7b68ee',
+      'green': '#66ddaa',
+      'red': '#ff0000',
+      'light-red': '#f4364c',
       'dark-purple': {
         100: '#6e5dd6',
         200: '#6253be',
@@ -42,9 +45,7 @@ module.exports = {
       custom: ['Nanum Gothic Coding', 'Menlo', 'sans-serif']
     },
     extend: {
-      animation: {
-        'spin-slow': 'spin 2s linear infinite'
-      }
+      
     },
   },
   plugins: [],

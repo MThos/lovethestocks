@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 .App {
+  background-image: url('images/purple-bg-8-min.jpg');
+  background-size: cover;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
