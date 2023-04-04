@@ -11,6 +11,7 @@ import { ThemeProvider } from "@emotion/react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  // eslint-disable-next-line
   const [active, setActive] = useState('');
 
   // nav links
@@ -49,7 +50,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-dark-purple-800 border-b-8 border-dark-purple-600 text-light-purple-500 flex flex-row items-center justify-between">
+    <div className="bg-purple-700 border-b-8 border-purple-600 text-purple-200 flex flex-row items-center justify-between">
       <img className="w-16 ml-2" src="images/lovethestocks-min.png" alt="logo" />
 
       <Button
@@ -62,7 +63,7 @@ const Header = () => {
           p: 0
         }}
       >
-        <MenuIcon className="cursor-pointer text-light-purple-500" />
+        <MenuIcon className="cursor-pointer text-purple-200" />
       </Button>
       
       <ThemeProvider theme={navMenuTheme}>
@@ -83,13 +84,13 @@ const Header = () => {
             'aria-labelledby': 'nav-menu', 
           }}
         >
-          <MenuItem onClick={handleNavClose}><Link to="/test">Latest News</Link></MenuItem>
+          <MenuItem onClick={handleNavClose}><Link to="/news">Latest News</Link></MenuItem>
           <MenuItem onClick={handleNavClose}>Index List</MenuItem>
           <MenuItem onClick={handleNavClose}>Charts</MenuItem>
           <MenuItem onClick={handleNavClose}><Link to="/details">Details</Link></MenuItem>
-          <MenuItem onClick={handleNavClose}>Financials</MenuItem>
-          <MenuItem onClick={handleNavClose}>Analysis</MenuItem>
-          <MenuItem onClick={handleNavClose}>Company</MenuItem>
+          <MenuItem onClick={handleNavClose}><Link to="/financials">Financials</Link></MenuItem>
+          <MenuItem onClick={handleNavClose}><Link to="/analysis">Analysis</Link></MenuItem>
+          <MenuItem onClick={handleNavClose}><Link to="/company">Company</Link></MenuItem>
         </Menu>
       </ThemeProvider>
 
@@ -101,7 +102,7 @@ const Header = () => {
         onClick={handleSearchClick}
         sx={{ p: 0 }}
       >
-        <SearchIcon className="cursor-pointer text-light-purple-500" />
+        <SearchIcon className="cursor-pointer text-purple-200" />
       </Button>
 
       <ThemeProvider theme={searchMenuTheme}>
@@ -164,7 +165,7 @@ const navMenuTheme = createTheme({
       styleOverrides: {
         paper: {
           border: '2px solid black',
-          backgroundColor: '#493e8e',
+          backgroundColor: '#6527F3',
           color: 'white',
           textTransform: 'uppercase'
         }
@@ -174,7 +175,7 @@ const navMenuTheme = createTheme({
       styleOverrides: {
         root: {
           border: '1px solid black',
-          fontSize: '0.9rem',
+          fontSize: '1.2rem',
           '&:hover': {
             backgroundColor: 'white',
             color: 'black'
@@ -201,7 +202,7 @@ const searchMenuTheme = createTheme({
       styleOverrides: {
         paper: {
           border: '2px solid black',
-          backgroundColor: '#241f47',
+          backgroundColor: '#6527F3',
           color: 'white',
           width: '100%'
         }
@@ -249,7 +250,7 @@ const autocompleteMenuTheme = createTheme({
           width: '100%'
         },
         option: {
-          backgroundColor: '#493e8e',
+          backgroundColor: '#6527F3',
           color: 'white',
           '&:hover': {
             backgroundColor: 'white',

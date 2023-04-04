@@ -2,12 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+body, html {
+  background: black;
+}
+
 .App {
-  background-image: url('images/purple-bg-8-min.jpg');
+  background-image: url('images/purple-bg-12-min.jpg');
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 .fade-in {
@@ -41,4 +42,28 @@
   100% {
     opacity: 1;
   }
+}
+
+.option-button button {
+  border: 2px solid black;
+  border-radius: 5px;
+  background: theme('colors.purple.500');;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 7px 0 5px 0;
+  text-transform: capitalize;
+  width: 96px;
+}
+
+.option-button button:hover {
+  background: theme('colors.purple.300');
+  color: white;
+}
+
+.option-button-active {
+  background: theme('colors.purple.300');
+  border-radius: 5px;
+  color: white !important;
 }
