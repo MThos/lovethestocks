@@ -103,7 +103,7 @@ app.get('/indexes', (req, res) => {
 
 // GAINERS
 app.get('/gainers', (req, res) => {
-  const GAINER_CACHE_TIME = 1000 * 60 * 1 // 5 minutes
+  const GAINER_CACHE_TIME = 1000 * 60 * 1 // 1 minutes
   const GAINER_ENDPOINT = `https://financialmodelingprep.com/api/v3/stock_market/gainers?apikey=${API_KEY}`;
   cachedTickerData('gainers', req, res, GAINER_ENDPOINT, GAINER_CACHE_TIME);
 });
