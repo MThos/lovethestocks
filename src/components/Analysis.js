@@ -90,7 +90,7 @@ const AnalysisList = (priceTargetsData) => {
   priceTargetsData.map((key) => (
     counter < 25 ?
     analysis_collection.push(
-      <div className="my-5 border-4 border-purple-200 mx-5" key={counter++}>
+      <div className="bg-purple-700 border-4 rounded border-purple-400 m-5 max-w-2xl" key={counter++}>
         <div className="flex flex-row justify-center py-5">
           <div className="w-32">
             <div className="text-lg">TARGET</div>
