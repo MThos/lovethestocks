@@ -29,7 +29,7 @@ const global_theme = createTheme({
     },
   },
   typography: {
-    "fontFamily": `"Nanum Gothic Coding", Helvetica, sans-serif`,
+    "fontFamily": `"Ubuntu Mono", Helvetica, sans-serif`,
   }
 });
 
