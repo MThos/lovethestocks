@@ -190,7 +190,7 @@ const Financials = () => {
                 </div>
               </div>
               <div className="w-28">
-                <div className="text-md">ADMINISTRATIVE</div>
+                <div className="text-md">ADMIN</div>
                 <div className="text-xl text-red-400">
                   {displayType === 'annual' ? NumberConverter(annualData['generalAndAdministrativeExpenses'], 2) : NumberConverter(quarterlyData['generalAndAdministrativeExpenses'], 2)}
                 </div>
