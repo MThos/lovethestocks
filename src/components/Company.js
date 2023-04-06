@@ -48,10 +48,7 @@ const Company = () => {
             {stockData['companyName']}
           </div>
           <div>
-          ({stockData['country']})
-          </div>
-          <div>
-            <img className="w-32 m-auto" src={stockData['image']} alt={stockData['symbol']} 
+            <img className="w-32 m-auto mt-3" src={stockData['image']} alt={stockData['symbol']} 
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src="images/missing.png";
@@ -77,11 +74,23 @@ const Company = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center gap-10 mt-8">
-            <div className="flex flex-col w-32">
+          <div className="flex justify-center gap-6 mt-8">
+            <div className="flex flex-col w-24">
               <div className="text-lg">EXCHANGE</div>
               <div className="text-xl text-pink-200">
                 {stockData['exchangeShortName']}
+              </div>
+            </div>
+            <div className="flex flex-col w-24">
+              <div className="text-lg">COUNTRY</div>
+              <div className="text-xl text-pink-200">
+                {stockData['country']}
+              </div>
+            </div>
+            <div className="flex flex-col w-24">
+              <div className="text-lg">EMPLOYEES</div>
+              <div className="text-xl text-pink-200">
+                {stockData['isEtf'] === true ? 'N/A' : NumberConverter(stockData['fullTimeEmployees'], 0)}
               </div>
             </div>
           </div>
@@ -110,16 +119,11 @@ const Company = () => {
                 {stockData['ipoDate']}
               </div>
             </div>
-            <div className="w-32">
-              <div className="text-lg">EMPLOYEES</div>
-              <div className="text-xl text-pink-200">
-                {stockData['isEtf'] === true ? 'N/A' : NumberConverter(stockData['fullTimeEmployees'], 0)}
-              </div>
-            </div>
+            
           </div>
           <div className="flex flex-col m-auto mt-10">
             <div className="text-lg">SUMMARY</div>
-            <div className="font-semibold text-left px-4 text-lg text-pink-200 max-w-4xl">
+            <div className="font-normal text-left px-4 text-lg text-pink-200 max-w-4xl">
               {stockData['description']}
             </div>
           </div>
