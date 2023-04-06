@@ -83,7 +83,7 @@ module.exports = {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
       mono: ['Menlo', 'Consolas'],
-      custom: ['Nanum Gothic Coding', 'Menlo', 'sans-serif']
+      custom: ['Ubuntu Mono', 'Menlo', 'sans-serif']
     },
     extend: {
       
