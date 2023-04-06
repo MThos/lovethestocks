@@ -7,8 +7,9 @@ body, html {
 }
 
 .App {
-  background-image: url('images/purple-bg-12-min.jpg');
-  background-size: cover;
+  background-image: url('images/purple-bg-1-min.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .fade-in {
@@ -66,4 +67,11 @@ body, html {
   background: theme('colors.purple.300');
   border-radius: 5px;
   color: white !important;
+}
+
+@media screen and (max-width: 500px)  {
+  .App {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
