@@ -9,6 +9,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from "@emotion/react";
 import { Link } from "react-router-dom";
+import GlobalTheme from './GlobalTheme'
 
 const Header = () => {
   // eslint-disable-next-line
@@ -176,6 +177,11 @@ const navMenuTheme = createTheme({
         root: {
           border: '1px solid black',
           fontSize: '1.2rem',
+          [GlobalTheme.breakpoints.up('md')]: {
+            fontSize: '1.5rem',
+            paddingLeft: 20,
+            paddingRight: 20
+          },
           '&:hover': {
             backgroundColor: 'white',
             color: 'black'
@@ -186,7 +192,8 @@ const navMenuTheme = createTheme({
     MuiList: {
       styleOverrides: {
         root: {
-          padding: 0
+          border: '2px solid #F8D9FD',
+          padding: 1
         }
       }
     }
@@ -204,7 +211,10 @@ const searchMenuTheme = createTheme({
           border: '2px solid black',
           backgroundColor: '#6527F3',
           color: 'white',
-          width: '100%'
+          width: '100%',
+          [GlobalTheme.breakpoints.up('md')]: {
+            width: '25%'
+          }
         }
       },
     },
@@ -262,6 +272,9 @@ const autocompleteMenuTheme = createTheme({
         },
         listbox: {
           fontSize: '1rem',
+          [GlobalTheme.breakpoints.up('md')]: {
+            fontSize: '1.2rem',
+          },
           padding: 0
         }
       }

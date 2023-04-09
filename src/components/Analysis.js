@@ -46,31 +46,31 @@ const Analysis = () => {
     return (
       <section className="fade-in">        
         <div className="flex flex-col text-white font-custom font-semibold text-center">
-          <div className="text-5xl mt-4 font-bold">
+          <div className="sm:text-5xl md:text-5xl lg:text-5xl xl:text-7xl mt-4 font-bold">
             {priceTargetConsensusData['symbol']}
           </div>
           <div className="flex flex-row gap-4 m-auto mt-8">
-            <div className="w-28">
-              <div className="text-lg">HIGH</div>
-              <div className="text-2xl text-green">
+            <div className="sm:w-28 md:w-40 lg:w-40 xl:w-60">
+              <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl">HIGH</div>
+              <div className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-green">
                 ${NumberConverter(priceTargetConsensusData['targetHigh'], 2)}
               </div>
             </div>
-            <div className="w-28">
-              <div className="text-lg">CONSENSUS</div>
-              <div className="text-2xl text-green">
+            <div className="sm:w-28 md:w-40 lg:w-40 xl:w-60">
+              <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl">CONSENSUS</div>
+              <div className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-green">
                 ${NumberConverter(priceTargetConsensusData['targetConsensus'], 2)}
               </div>
             </div>
-            <div className="w-28">
-              <div className="text-lg">LOW</div>
-              <div className="text-2xl text-green">
+            <div className="sm:w-28 md:w-40 lg:w-40 xl:w-60">
+              <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl">LOW</div>
+              <div className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-green">
                 ${NumberConverter(priceTargetConsensusData['targetLow'], 2)}
               </div>
             </div>            
           </div>
         </div>
-        <div className="flex flex-col text-white font-custom font-semibold text-center mt-8">
+        <div className="flex flex-col text-white font-custom font-semibold text-center mt-10">
           { AnalysisList(priceTargetsData) }
         </div>
       </section>
@@ -79,8 +79,7 @@ const Analysis = () => {
     return (
       <NoData />
     );
-  }
-  
+  }  
 }
 
 const AnalysisList = (priceTargetsData) => {
@@ -90,38 +89,38 @@ const AnalysisList = (priceTargetsData) => {
   priceTargetsData.map((key) => (
     counter < 25 ?
     analysis_collection.push(
-      <div className="bg-purple-700 border-4 rounded border-purple-400 m-5 max-w-2xl" key={counter++}>
+      <div className="bg-purple-700 border-4 rounded border-purple-400 m-auto mb-10 sm:max-w-sm md:max-w-lg xl:max-w-4xl" key={counter++}>
         <div className="flex flex-row justify-center py-5">
-          <div className="w-32">
-            <div className="text-lg">TARGET</div>
-            <div className={`text-xl ${key['priceTarget'] < key['priceWhenPosted'] ? "text-red-400" : "text-green"}`}>${NumberConverter(key['priceTarget'], 2)}</div>
+          <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
+            <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Target</div>
+            <div className={`sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl ${key['priceTarget'] < key['priceWhenPosted'] ? "text-red-400" : "text-green"}`}>${NumberConverter(key['priceTarget'], 2)}</div>
           </div>
-          <div className="w-32">
-            <div className="text-lg">DATE</div> 
-            <div className="text-xl text-pink-200">{key['publishedDate'].substring(0, 10)}</div>
+          <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
+            <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Date</div> 
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-200">{key['publishedDate'].substring(0, 10)}</div>
           </div>
-          <div className="w-32">
-            <div className="text-lg">PRICE</div>
-            <div className="text-xl text-green">${NumberConverter(key['priceWhenPosted'], 2)}</div>
+          <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
+            <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Price</div>
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-green">${NumberConverter(key['priceWhenPosted'], 2)}</div>
           </div>
         </div>
         <div className="flex flex-row justify-center py-5">
-          <div className="w-32">
-            <div className="text-lg">Name</div>
-            <div className="text-xl text-pink-200">{key['analystName'] ? key['analystName'] : "N/A"}</div>
+          <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
+            <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Name</div>
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-200">{key['analystName'] ? key['analystName'] : "N/A"}</div>
           </div>
-          <div className="w-32">
-            <div className="text-lg">Publisher</div>
-            <div className="text-xl text-pink-200">{key['newsPublisher'] ? key['newsPublisher'] : "N/A"}</div>
+          <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
+            <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Publisher</div>
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-200">{key['newsPublisher'] ? key['newsPublisher'] : "N/A"}</div>
           </div>
-          <div className="w-32">
-            <div className="text-lg">Company</div>
-            <div className="text-xl text-pink-200">{key['analystCompany'] ? key['analystCompany'] : "N/A"}</div>
+          <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
+            <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Company</div>
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-200">{key['analystCompany'] ? key['analystCompany'] : "N/A"}</div>
           </div>
         </div>
         <div className="flex flex-col px-4 py-5">
-          <div className="text-lg">Article Link</div>
-          <div className="text-lg text-yellow-200">
+          <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Article Link</div>
+          <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl text-yellow-200">
             <a href={key['newsURL']} target="_blank" rel="noopener noreferrer">
               {key['newsTitle'] && key['newsTitle'].length >= 200 ? key['newsTitle'].substring(0, 200) : key['newsTitle']}....
             </a>

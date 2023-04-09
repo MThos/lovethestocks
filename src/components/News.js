@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LoadingIcon from './LoadingIcon.js';
+import NoData from './NoData.js';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardActions from '@mui/material/CardActions';
@@ -38,16 +39,20 @@ const News = () => {
     )
   }
 
-  return (
-    <section className="fade-in">
-      <div className="flex flex-col text-center font-custom font-semibold text-white">
-        <div className="text-5xl font-bold mt-4">NEWS</div>
-        <div className="flex flex-row flex-wrap">
-          { NewsList(newsData) }
+  if (newsData && Object.keys(newsData).length > 0) {
+    return (
+      <section className="fade-in">
+        <div className="flex flex-col text-center font-custom font-semibold text-white">
+          <div className="text-5xl font-bold mt-4">NEWS</div>
+          <div className="flex flex-row flex-wrap gap-4 justify-center mb-20">
+            { NewsList(newsData) }
+          </div>
         </div>
-      </div>
-    </section>
-  )  
+      </section>
+    )
+  } else {
+    <NoData />
+  }
 }
 
 export default News;
@@ -62,8 +67,8 @@ const NewsList = (newsData) => {
 
   newsData.map((key) => (
     news.push(
-      <div className="grow shrink sm:basis-full md:basis-1/2 lg:basis-1/2 xl:basis-1/3">
-        <Card key={counter++} className="m-auto mt-10" sx={{ background: '#3709A1', border: '4px solid #fff', maxWidth: 350 }}>
+      <div className="grow shrink sm:basis-full md:basis-1/2 lg:basis-1/2 xl:basis-1/4 max-w-sm mt-10">
+        <Card key={counter++} className="m-5" sx={{ background: '#3709A1', border: '4px solid #fff', height: '100%' }}>
           <CardMedia
           component="img"
           alt={key['title']}
@@ -76,16 +81,16 @@ const NewsList = (newsData) => {
                 {key['symbol']}
               </Typography>
             </Link>
-            <Typography variant="body1" color="text.main" sx={{ fontWeight: 400, fontSize: 18, lineHeight: 1.5 }}>
+            <Typography variant="body1" color="text.main" sx={{ fontSize: 18}}>
               {key['title']}
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="large" sx={{ color: '#F6CFFC', fontSize: 18, fontWeight: 400, margin: 'auto' }}>
+            <Button size="large" sx={{ color: '#F6CFFC', fontSize: 18, fontWeight: 500, margin: 'auto' }}>
               <a href={`${key['url']}`} target="_blank" rel="noopener noreferrer">Read Full Article</a>
             </Button>
           </CardActions>
-          <Typography gutterBottom component="div" color="text.main" sx={{ marginTop: 2 }}>
+          <Typography component="div" color="text.main" sx={{  }}>
             {key['publishedDate']}
           </Typography>
         </Card>
