@@ -46,14 +46,15 @@ body, html {
 }
 
 .option-button button {
-  border: 2px solid black;
+  border: 2px solid theme('colors.purple.400');
   border-radius: 5px;
   background: theme('colors.purple.500');;
   color: white;
   cursor: pointer;
   font-size: 1.2rem;
   font-weight: 600;
-  padding: 7px 0 5px 0;
+  height: 50px;
+  padding: 7px 0;
   text-transform: capitalize;
   width: 96px;
 }

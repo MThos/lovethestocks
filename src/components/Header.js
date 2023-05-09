@@ -86,7 +86,7 @@ const Header = () => {
           }}
         >
           <MenuItem onClick={handleNavClose}><Link to="/news">Latest News</Link></MenuItem>
-          <MenuItem onClick={handleNavClose}>Index List</MenuItem>
+          <MenuItem onClick={handleNavClose}><Link to="/indexes">Index List</Link></MenuItem>
           <MenuItem onClick={handleNavClose}>Charts</MenuItem>
           <MenuItem onClick={handleNavClose}><Link to="/details">Details</Link></MenuItem>
           <MenuItem onClick={handleNavClose}><Link to="/financials">Financials</Link></MenuItem>

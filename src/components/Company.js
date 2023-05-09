@@ -19,7 +19,7 @@ const Company = () => {
         params: { symbol: active }
       };
   
-      axios.request(options).then((response) => {
+      axios.request(options).then((response) => {        
         console.log(response.data[0]);
         setStockData(response.data[0]);
         setLoading(false);

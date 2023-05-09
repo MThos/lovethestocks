@@ -67,8 +67,8 @@ const NewsList = (newsData) => {
 
   newsData.map((key) => (
     news.push(
-      <div className="grow shrink sm:basis-full md:basis-1/2 lg:basis-1/2 xl:basis-1/4 max-w-sm mt-10">
-        <Card key={counter++} className="m-5" sx={{ background: '#3709A1', border: '4px solid #fff', height: '100%' }}>
+      <div key={counter++} className="grow shrink sm:basis-full md:basis-1/2 lg:basis-1/2 xl:basis-1/4 max-w-sm mt-10">
+        <Card className="m-5" sx={{ background: '#3709A1', border: '4px solid #fff', height: '100%' }}>
           <CardMedia
           component="img"
           alt={key['title']}

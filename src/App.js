@@ -8,6 +8,7 @@ import Details from './components/Details';
 import Financials from './components/Financials';
 import Analysis from './components/Analysis';
 import Company from './components/Company';
+import Indexes from './components/Indexes';
 import Error from './components/Error';
 
 const App = () => {
@@ -30,7 +31,8 @@ const App = () => {
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route path="/" element={<Details />} />
+            <Route path="/" element={<Indexes />} />
+            <Route path="/indexes" element={<Indexes />} />
             <Route path="/news" element={<News />} />
             <Route path="/details" element={<Details />} />
             <Route path="/financials" element={<Financials />} />

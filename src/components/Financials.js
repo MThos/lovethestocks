@@ -62,7 +62,7 @@ const Financials = () => {
           </div>
           <div className="flex flex-row gap-7 items-center m-auto sm:mt-6 xl:mt-12 xl:mb-6">
             <Button name="annual" displayText={annualData['period'] + ' ' + annualData['calendarYear']} onClick={onClick} active={displayType === 'annual' ? 'yes' : 'no'} />
-            <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-yellow-200 sm:w-24 md:w-40 lg:w-40 xl:w-80">
+            <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-5xl text-yellow-200 sm:w-24 md:w-40 lg:w-40 xl:w-80">
               {
                 displayType === 'annual' ? 
                   annualData['period'] + '·' + annualData['calendarYear'] :

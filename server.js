@@ -3,12 +3,23 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 const cors = require('cors');
 const app = express();
+const rateLimit = require('express-rate-limit')
 require('dotenv').config();
 
 app.use(cors());
 
 // API KEY
 const API_KEY = process.env.REACT_APP_API_KEY
+
+// RATE LIMITER
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 750,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use(limiter);
 
 // MONGODB CONNECTION
 const mongo_address = process.env.REACT_APP_MONGO_ADDR
@@ -144,6 +155,27 @@ app.get('/topmarketcap', (req, res) => {
   const TOP_MARKET_CAP_CACHE_TIME = 1000 * 60 * 1 // 1 minute
   const TOP_MARKET_CAP_ENDPOINT = `https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=1000000000&volumeMoreThan=1&exchange=NYSE,NASDAQ,AMEX,EURONEXT,TSX&isActivelyTrading=true&isEtf=false&limit=100&apikey=${API_KEY}`;
   cachedTickerData('topmarketcap', req, res, TOP_MARKET_CAP_ENDPOINT, TOP_MARKET_CAP_CACHE_TIME);
+});
+
+// S&P500
+app.get('/sp500', (req, res) => {
+  const SP500_CACHE_TIME = 1000 * 60 * 1 // 1 minute
+  const SP500_ENDPOINT = `https://financialmodelingprep.com/api/v3/sp500_constituent?apikey=${API_KEY}`;
+  cachedTickerData('sp500', req, res, SP500_ENDPOINT, SP500_CACHE_TIME);
+});
+
+// NASDAQ
+app.get('/nasdaq', (req, res) => {
+  const NASDAQ_CACHE_TIME = 1000 * 60 * 1 // 1 minute
+  const NASDAQ_ENDPOINT = `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${API_KEY}`;
+  cachedTickerData('nasdaq', req, res, NASDAQ_ENDPOINT, NASDAQ_CACHE_TIME);
+});
+
+// DOW JONES
+app.get('/dowjones', (req, res) => {
+  const DOWJONES_CACHE_TIME = 1000 * 60 * 1 // 1 minute
+  const DOWJONES_ENDPOINT = `https://financialmodelingprep.com/api/v3/dowjones_constituent?apikey=${API_KEY}`;
+  cachedTickerData('dowjones', req, res, DOWJONES_ENDPOINT, DOWJONES_CACHE_TIME);
 });
 
 // NEWS ARTICLES
