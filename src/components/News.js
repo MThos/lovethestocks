@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 
 const News = () => {
   const [newsData, setNewsData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,6 +28,10 @@ const News = () => {
         setLoading(false);
       }).catch((error) => {
         console.log(error);
+        if (error.response.status === 429) {
+          setLoading(true);
+          setErrorMessage('too many requests');
+        }
       });
     } catch (error) {
       console.log(error);
@@ -35,7 +40,7 @@ const News = () => {
 
   if (isLoading) {
     return (
-      <LoadingIcon />
+      <LoadingIcon message={errorMessage} />
     )
   }
 

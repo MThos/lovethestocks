@@ -17,6 +17,7 @@ const Indexes = () => {
   const [sp500, setSP500] = useState([]);
   const [nasdaq, setNasdaq] = useState([]);
   const [displayType, setDisplayType] = useState("dowjones");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(true);
   
   const rows = (displayType === 'sp500') ?
@@ -104,6 +105,10 @@ const Indexes = () => {
         setLoading(false);
       }).catch((error) => {
         console.log(error);
+        if (error.response.status === 429) {
+          setLoading(true);
+          setErrorMessage('too many requests');
+        }
       });
     } catch (error) {
       console.log(error);
@@ -112,7 +117,7 @@ const Indexes = () => {
 
   if (isLoading) {
     return (
-      <LoadingIcon />
+      <LoadingIcon message={errorMessage} />
     )
   }
 

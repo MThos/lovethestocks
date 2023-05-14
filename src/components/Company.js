@@ -6,6 +6,7 @@ import NoData from './NoData.js';
 
 const Company = () => {
   const [stockData, setStockData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(true);
   const active = (localStorage.getItem('active')) ? localStorage.getItem('active') : 'AAPL';
 
@@ -25,6 +26,10 @@ const Company = () => {
         setLoading(false);
       }).catch((error) => {
         console.log(error);
+        if (error.response.status === 429) {
+          setLoading(true);
+          setErrorMessage('too many requests');
+        }
       });
     } catch (error) {
       console.log(error);
@@ -33,7 +38,7 @@ const Company = () => {
 
   if (isLoading) {
     return (
-      <LoadingIcon />
+      <LoadingIcon message={errorMessage} />
     )
   }
 

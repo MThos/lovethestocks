@@ -10,6 +10,7 @@ const Details = () => {
   const [keyMetricData, setKeyMetricData] = useState([]);
   const [incomeData, setIncomeData] = useState([]);
   const [cashData, setCashData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(true);
   const active = (localStorage.getItem('active')) ? localStorage.getItem('active') : 'AAPL';
 
@@ -36,6 +37,10 @@ const Details = () => {
         setLoading(false);
       }).catch((error) => {
         console.log(error);
+        if (error.response.status === 429) {
+          setLoading(true);
+          setErrorMessage('too many requests');
+        }
       });
     } catch (error) {
       console.log(error);
@@ -44,7 +49,7 @@ const Details = () => {
 
   if (isLoading) {
     return (
-      <LoadingIcon />
+      <LoadingIcon message={errorMessage} />
     )
   }
 

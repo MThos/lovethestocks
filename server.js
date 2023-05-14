@@ -14,7 +14,7 @@ const API_KEY = process.env.REACT_APP_API_KEY
 // RATE LIMITER
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 750,
+  max: 745,
   standardHeaders: true,
   legacyHeaders: false,
 });

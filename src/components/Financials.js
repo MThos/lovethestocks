@@ -9,6 +9,7 @@ const Financials = () => {
   const [annualData, setAnnualData] = useState([]);
   const [quarterlyData, setQuarterlyData] = useState([]);
   const [displayType, setDisplayType] = useState("annual");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(true);
 
   const active = (localStorage.getItem('active')) ? localStorage.getItem('active') : 'AAPL';
@@ -35,6 +36,10 @@ const Financials = () => {
         setLoading(false);
       }).catch((error) => {
         console.log(error);
+        if (error.response.status === 429) {
+          setLoading(true);
+          setErrorMessage('too many requests');
+        }
       });
     } catch (error) {
       console.log(error);
@@ -43,7 +48,7 @@ const Financials = () => {
 
   if (isLoading) {
     return (
-      <LoadingIcon />
+      <LoadingIcon message={errorMessage} />
     )
   }
 

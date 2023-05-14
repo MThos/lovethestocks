@@ -7,6 +7,7 @@ import NoData from './NoData.js';
 const Analysis = () => {
   const [priceTargetsData, setPriceTargetsData] = useState([]);
   const [priceTargetConsensusData, setPriceTargetConsensusData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(true);
   const active = (localStorage.getItem('active')) ? localStorage.getItem('active') : 'AAPL';
 
@@ -27,6 +28,10 @@ const Analysis = () => {
         setLoading(false);
       }).catch((error) => {
         console.log(error);
+        if (error.response.status === 429) {
+          setLoading(true);
+          setErrorMessage('too many requests');
+        }
       });
     } catch (error) {
       console.log(error);
@@ -35,7 +40,7 @@ const Analysis = () => {
 
   if (isLoading) {
     return (
-      <LoadingIcon />
+      <LoadingIcon message={errorMessage} />
     )
   }
 
