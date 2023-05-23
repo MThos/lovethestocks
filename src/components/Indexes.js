@@ -91,9 +91,9 @@ const Indexes = () => {
       setLoading(true);
 
       const endPoints = [
-        'http://localhost:8000/dowjones',
-        'http://localhost:8000/sp500',
-        'http://localhost:8000/nasdaq'
+        'http://localhost:8000/api/dowjones',
+        'http://localhost:8000/api/sp500',
+        'http://localhost:8000/api/nasdaq'
       ];
 
       axios.all(endPoints.map((endPoint) => axios.get(endPoint)))

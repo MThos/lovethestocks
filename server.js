@@ -22,14 +22,18 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // MONGODB CONNECTION
-const mongo_address = process.env.REACT_APP_MONGO_ADDR
-const mongo_port = process.env.REACT_APP_MONGO_PORT
+const mongo_host = process.env.REACT_APP_MONGO_HOST;
+const mongo_replica = process.env.REACT_APP_MONGO_REPLICA_SET;
+const mongo_port = process.env.REACT_APP_MONGO_PORT;
+const mongo_user = process.env.REACT_APP_MONGO_USER;
+const mongo_pass = process.env.REACT_APP_MONGO_PASS;
+const mongo_db = process.env.REACT_APP_MONGO_DB;
 mongoose.set("strictQuery", false);
-mongoose.connect(`mongodb://${mongo_address}:${mongo_port}/stocks?directConnection=true&serverSelectionTimeoutMS=2000`);
+mongoose.connect(`mongodb+srv://${mongo_user}:${mongo_pass}@${mongo_host}/${mongo_db}?tls=true&authSource=admin&replicaSet=${mongo_replica}`);
 const db = mongoose.connection;
 db.on('error', error => console.log(error));
 db.once('connected', () => {
-  console.log(`MongoDB connected -> ${mongo_address} : ${mongo_port}.`);
+  console.log(`MongoDB connected -> ${mongo_host} : ${mongo_port}.`);
   //db.collection('').deleteMany(); // delete collection data
   //db.dropDatabase(); // delete database
 });
@@ -43,14 +47,14 @@ try {
 }
 
 // STOCK LIST
-app.get('/stocklist', (req) => {
+app.get('/api/stocklist', (req) => {
   const STOCKLIST_CACHE_TIME = 1000 * 60 * 60 * 24;; // 60 minutes
   const STOCKLIST_ENDPOINT = `https://financialmodelingprep.com/api/v3/available-traded/list?apikey=${API_KEY}`;
   cachedStockList('stocklist', req, STOCKLIST_ENDPOINT, STOCKLIST_CACHE_TIME);
 })
 
 // PROFILE
-app.get('/profile', (req, res) => {
+app.get('/api/profile', (req, res) => {
   const SYMBOL = req.query.symbol;
   const PROFILE_CACHE_TIME = 1000 * 60 * 60; // 60 minutes
   const PROFILE_ENDPOINT = `https://financialmodelingprep.com/api/v3/profile/${SYMBOL}?apikey=${API_KEY}`;
@@ -58,7 +62,7 @@ app.get('/profile', (req, res) => {
 });
 
 // QUOTE
-app.get('/quote', (req, res) => {
+app.get('/api/quote', (req, res) => {
   const SYMBOL = req.query.symbol;
   const QUOTE_CACHE_TIME = 1000 * 60 * 5 // 5 minutes
   const QUOTE_ENDPOINT = `https://financialmodelingprep.com/api/v3/quote/${SYMBOL}?apikey=${API_KEY}`;
@@ -66,7 +70,7 @@ app.get('/quote', (req, res) => {
 });
 
 // KEY METRICS
-app.get('/keymetrics', (req, res) => {
+app.get('/api/keymetrics', (req, res) => {
   const SYMBOL = req.query.symbol;
   const KEY_METRIC_CACHE_TIME = 1000 * 60 * 60; // 60 minutes
   const KEY_METRIC_ENDPOINT = `https://financialmodelingprep.com/api/v3/key-metrics/${SYMBOL}?limit=1&apikey=${API_KEY}`;
@@ -74,7 +78,7 @@ app.get('/keymetrics', (req, res) => {
 });
 
 // INCOME STATEMENT
-app.get('/income', (req, res) => {
+app.get('/api/income', (req, res) => {
   const SYMBOL = req.query.symbol;
   const INCOME_CACHE_TIME = 1000 * 60 * 60; // 30 minutes
   const INCOME_ENDPOINT = `https://financialmodelingprep.com/api/v3/income-statement/${SYMBOL}?limit=1&apikey=${API_KEY}`;
@@ -82,7 +86,7 @@ app.get('/income', (req, res) => {
 });
 
 // CASH FLOW STATEMENT
-app.get('/cash', (req, res) => {
+app.get('/api/cash', (req, res) => {
   const SYMBOL = req.query.symbol;
   const CASH_CACHE_TIME = 1000 * 60 * 60; // 60 minutes
   const CASH_ENDPOINT = `https://financialmodelingprep.com/api/v3/cash-flow-statement/${SYMBOL}?limit=1&apikey=${API_KEY}`;
@@ -90,7 +94,7 @@ app.get('/cash', (req, res) => {
 });
 
 // ANNUAL STATEMENT
-app.get('/annual', (req, res) => {
+app.get('/api/annual', (req, res) => {
   const SYMBOL = req.query.symbol;
   const ANNUAL_CACHE_TIME = 1000 * 60 * 60; // 60 minutes
   const ANNUAL_ENDPOINT = `https://financialmodelingprep.com/api/v3/income-statement/${SYMBOL}?limit=120&apikey=${API_KEY}`;
@@ -98,7 +102,7 @@ app.get('/annual', (req, res) => {
 });
 
 // QUARTERLY STATEMENT
-app.get('/quarterly', (req, res) => {
+app.get('/api/quarterly', (req, res) => {
   const SYMBOL = req.query.symbol;
   const QUARTERLY_CACHE_TIME = 1000 * 60 * 60; // 60 minutes
   const QUARTERLY_ENDPOINT = `https://financialmodelingprep.com/api/v3/income-statement/${SYMBOL}?period=quarter&limit=400&apikey=${API_KEY}`;
@@ -106,28 +110,28 @@ app.get('/quarterly', (req, res) => {
 });
 
 // INDEXES
-app.get('/indexes', (req, res) => {
+app.get('/api/indexes', (req, res) => {
   const INDEX_CACHE_TIME = 1000 * 60 * 1 // 1 minutes
   const INDEX_ENDPOINT = `https://financialmodelingprep.com/api/v3/quote/%5EGSPC,%5EDJI,%5EIXIC?apikey=${API_KEY}`;
   cachedTickerData('indexes', req, res, INDEX_ENDPOINT, INDEX_CACHE_TIME);
 });
 
 // GAINERS
-app.get('/gainers', (req, res) => {
+app.get('/api/gainers', (req, res) => {
   const GAINER_CACHE_TIME = 1000 * 60 * 1 // 1 minutes
   const GAINER_ENDPOINT = `https://financialmodelingprep.com/api/v3/stock_market/gainers?apikey=${API_KEY}`;
   cachedTickerData('gainers', req, res, GAINER_ENDPOINT, GAINER_CACHE_TIME);
 });
 
 // LOSERS
-app.get('/losers', (req, res) => {
+app.get('/api/losers', (req, res) => {
   const LOSER_CACHE_TIME = 1000 * 60 * 1 // 1 minutes
   const LOSER_ENDPOINT = `https://financialmodelingprep.com/api/v3/stock_market/losers?apikey=${API_KEY}`;
   cachedTickerData('losers', req, res, LOSER_ENDPOINT, LOSER_CACHE_TIME);
 });
 
 // PRICE TARGETS
-app.get('/pricetargets', (req, res) => {
+app.get('/api/pricetargets', (req, res) => {
   const SYMBOL = req.query.symbol;
   const PRICE_TARGETS_CACHE_TIME = 1000 * 60 * 120 // 120 minutes
   const PRICE_TARGETS_ENDPOINT = `https://financialmodelingprep.com/api/v4/price-target?symbol=${SYMBOL}&apikey=${API_KEY}`;
@@ -135,7 +139,7 @@ app.get('/pricetargets', (req, res) => {
 });
 
 // PRICE TARGET CONSENSUS
-app.get('/pricetargetconsensus', (req, res) => {
+app.get('/api/pricetargetconsensus', (req, res) => {
   const SYMBOL = req.query.symbol;
   const PRICE_TARGET_CONSENSUS_CACHE_TIME = 1000 * 60 * 120 // 120 minutes
   const PRICE_TARGET_CONSENSUS_ENDPOINT = `https://financialmodelingprep.com/api/v4/price-target-consensus?symbol=${SYMBOL}&apikey=${API_KEY}`;
@@ -143,7 +147,7 @@ app.get('/pricetargetconsensus', (req, res) => {
 });
 
 // DAILY HISTORICAL PRICING
-app.get('/dailyhistory', (req, res) => {
+app.get('/api/dailyhistory', (req, res) => {
   const SYMBOL = req.query.symbol;
   const DAILY_HISTORY_CACHE_TIME = 1000 * 60 * 5 // 5 minutes
   const DAILY_HISTORY_ENDPOINT = `https://financialmodelingprep.com/api/v3/historical-price-full/${SYMBOL}?apikey=${API_KEY}`;
@@ -151,35 +155,35 @@ app.get('/dailyhistory', (req, res) => {
 });
 
 // TOP 100 MARKET CAP
-app.get('/topmarketcap', (req, res) => {
+app.get('/api/topmarketcap', (req, res) => {
   const TOP_MARKET_CAP_CACHE_TIME = 1000 * 60 * 1 // 1 minute
   const TOP_MARKET_CAP_ENDPOINT = `https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=1000000000&volumeMoreThan=1&exchange=NYSE,NASDAQ,AMEX,EURONEXT,TSX&isActivelyTrading=true&isEtf=false&limit=100&apikey=${API_KEY}`;
   cachedTickerData('topmarketcap', req, res, TOP_MARKET_CAP_ENDPOINT, TOP_MARKET_CAP_CACHE_TIME);
 });
 
 // S&P500
-app.get('/sp500', (req, res) => {
+app.get('/api/sp500', (req, res) => {
   const SP500_CACHE_TIME = 1000 * 60 * 1 // 1 minute
   const SP500_ENDPOINT = `https://financialmodelingprep.com/api/v3/sp500_constituent?apikey=${API_KEY}`;
   cachedTickerData('sp500', req, res, SP500_ENDPOINT, SP500_CACHE_TIME);
 });
 
 // NASDAQ
-app.get('/nasdaq', (req, res) => {
+app.get('/api/nasdaq', (req, res) => {
   const NASDAQ_CACHE_TIME = 1000 * 60 * 1 // 1 minute
   const NASDAQ_ENDPOINT = `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${API_KEY}`;
   cachedTickerData('nasdaq', req, res, NASDAQ_ENDPOINT, NASDAQ_CACHE_TIME);
 });
 
 // DOW JONES
-app.get('/dowjones', (req, res) => {
+app.get('/api/dowjones', (req, res) => {
   const DOWJONES_CACHE_TIME = 1000 * 60 * 1 // 1 minute
   const DOWJONES_ENDPOINT = `https://financialmodelingprep.com/api/v3/dowjones_constituent?apikey=${API_KEY}`;
   cachedTickerData('dowjones', req, res, DOWJONES_ENDPOINT, DOWJONES_CACHE_TIME);
 });
 
 // NEWS ARTICLES
-app.get('/news', (req, res) => {
+app.get('/api/news', (req, res) => {
   const NEWS_CACHE_TIME = 1000 * 60 * 1 // 1 minute
   const NEWS_ENDPOINT = `https://financialmodelingprep.com/api/v3/stock_news?limit=100&apikey=${API_KEY}`;
   cachedTickerData('news', req, res, NEWS_ENDPOINT, NEWS_CACHE_TIME);

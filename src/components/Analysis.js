@@ -16,8 +16,8 @@ const Analysis = () => {
       setLoading(true);
 
       const endPoints = [
-        'http://localhost:8000/pricetargets',
-        'http://localhost:8000/pricetargetconsensus'
+        'http://localhost:8000/api/pricetargets',
+        'http://localhost:8000/api/pricetargetconsensus'
       ];
 
       axios.all(endPoints.map((endPoint) => axios.get(endPoint, { params: { symbol: active }})))

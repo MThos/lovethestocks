@@ -24,8 +24,8 @@ const Financials = () => {
       setLoading(true);
 
       const endPoints = [
-        'http://localhost:8000/annual',
-        'http://localhost:8000/quarterly'
+        'http://localhost:8000/api/annual',
+        'http://localhost:8000/api/quarterly'
       ];
 
       axios.all(endPoints.map((endPoint) => axios.get(endPoint, { params: { symbol: active }})))

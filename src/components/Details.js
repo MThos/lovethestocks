@@ -19,11 +19,11 @@ const Details = () => {
       setLoading(true);
 
       const endPoints = [
-        'http://localhost:8000/profile',
-        'http://localhost:8000/quote',
-        'http://localhost:8000/keymetrics',
-        'http://localhost:8000/income',
-        'http://localhost:8000/cash' 
+        'http://localhost:8000/api/profile',
+        'http://localhost:8000/api/quote',
+        'http://localhost:8000/api/keymetrics',
+        'http://localhost:8000/api/income',
+        'http://localhost:8000/api/cash' 
       ];
 
       axios.all(endPoints.map((endPoint) => axios.get(endPoint, { params: { symbol: active }})))

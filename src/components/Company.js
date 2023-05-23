@@ -16,7 +16,7 @@ const Company = () => {
 
       const options = {
         method: 'GET',
-        url: 'http://localhost:8000/profile',
+        url: 'http://localhost:8000/api/profile',
         params: { symbol: active }
       };
   
