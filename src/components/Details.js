@@ -19,16 +19,16 @@ const Details = () => {
       setLoading(true);
 
       const endPoints = [
-        'http://localhost:8000/api/profile',
-        'http://localhost:8000/api/quote',
-        'http://localhost:8000/api/keymetrics',
-        'http://localhost:8000/api/income',
-        'http://localhost:8000/api/cash' 
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/profile`,
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/quote`,
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/keymetrics`,
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/income`,
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/cash` 
       ];
 
       axios.all(endPoints.map((endPoint) => axios.get(endPoint, { params: { symbol: active }})))
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setProfileData(response[0]['data'][0]);
         setQuoteData(response[1]['data'][0]);
         setKeyMetricData(response[2]['data'][0]);
@@ -75,12 +75,12 @@ const Details = () => {
                 ${NumberConverter(quoteData['price'], 2)}
               </div>
               <div className="sm:text-xl md:text-xl lg:text-2xl xl:text-2xl">
-                <div className={NumberConverter(quoteData['change'], 2, 2).includes('-') ? 'text-red-400' : 'text-green'}>
+                <div className={NumberConverter(quoteData['change'], 2, 2).includes('-') ? 'text-red-300' : 'text-green'}>
                   {NumberConverter(quoteData['change'], 2, 2)} ({NumberConverter(quoteData['changesPercentage'], 1, 2)}%)
                 </div>
               </div>
               <div className="flex flex-row gap-3 sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl mb-6 mt-6">
-                <div className="text-red-400">{NumberConverter(quoteData['dayLow'], 2)}</div>
+                <div className="text-red-300">{NumberConverter(quoteData['dayLow'], 2)}</div>
                 <div>&#8596;</div>
                 <div className="text-green">{NumberConverter(quoteData['dayHigh'], 2)}</div>
               </div>
@@ -93,7 +93,7 @@ const Details = () => {
                 ${NumberConverter(quoteData['marketCap'], 2)}
               </div>
               <div className="sm:text-xl md:text-xl lg:text-2xl xl:text-2xl">
-                <div className={Subtract(quoteData['price'] * quoteData['sharesOutstanding'], quoteData['previousClose'] * quoteData['sharesOutstanding'], 2, 2).includes('-') ? 'text-red-400' : 'text-green'}>
+                <div className={Subtract(quoteData['price'] * quoteData['sharesOutstanding'], quoteData['previousClose'] * quoteData['sharesOutstanding'], 2, 2).includes('-') ? 'text-red-300' : 'text-green'}>
                   {Subtract(quoteData['price'] * quoteData['sharesOutstanding'], quoteData['previousClose'] * quoteData['sharesOutstanding'], 2, 2)}
                 </div>
               </div>
@@ -104,7 +104,7 @@ const Details = () => {
                 {NumberConverter(quoteData['volume'], 1)}
               </div>
               <div className="sm:text-xl md:text-xl lg:text-2xl xl:text-2xl">
-                <div className={Subtract(quoteData['volume'], quoteData['avgVolume'], 1, 2).includes('-') ? 'text-red-400' : 'text-green'}>
+                <div className={Subtract(quoteData['volume'], quoteData['avgVolume'], 1, 2).includes('-') ? 'text-red-300' : 'text-green'}>
                   {Subtract(quoteData['volume'], quoteData['avgVolume'], 1, 2)}
                 </div>
               </div>
@@ -114,19 +114,19 @@ const Details = () => {
             <div className="flex flex-row gap-6 m-auto">
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">CIK</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {parseInt(profileData['cik'], 10)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">COUNTRY</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {profileData['country']}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">CURRENCY</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {profileData['currency']}
                 </div>
               </div>
@@ -134,19 +134,19 @@ const Details = () => {
             <div className="flex flex-row gap-6 mt-10 m-auto">
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">EXCHANGE</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {profileData['exchangeShortName']}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">SHARES</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(quoteData['sharesOutstanding'], 1)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">FISCAL</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {MonthFromDate(keyMetricData['date'])}
                 </div>
               </div>
@@ -154,19 +154,19 @@ const Details = () => {
             <div className="flex flex-row gap-6 mt-10 m-auto">
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">EPS</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(quoteData['eps'], 2, 1)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">REVENUE</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(incomeData['revenue'], 1, 1)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">EBITDA</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(incomeData['ebitda'], 2, 1)}
                 </div>
               </div>
@@ -174,19 +174,19 @@ const Details = () => {
             <div className="flex flex-row gap-6 mt-10 m-auto">
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">NET INCOME</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(cashData['netIncome'], 1, 1)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">CASH</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(cashData['cashAtEndOfPeriod'], 1, 1)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">DEBT&#8594;ASSET</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(keyMetricData['debtToAssets'], 2, 1)}
                 </div>
               </div>
@@ -194,19 +194,19 @@ const Details = () => {
             <div className="flex flex-row gap-6 mt-10 m-auto">
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">52W HIGH</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(quoteData['yearHigh'], 2)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">52W LOW</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(quoteData['yearLow'], 2)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">PE</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(keyMetricData['peRatio'], 2, 1)}
                 </div>
               </div>
@@ -214,19 +214,19 @@ const Details = () => {
             <div className="flex flex-row gap-6 mt-10 m-auto">
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">50 MA</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(quoteData['priceAvg50'], 2)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">200 MA</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(quoteData['priceAvg200'], 2)}
                 </div>
               </div>
               <div className="sm:w-24 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">BETA</div>
-                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-pink-100">
                   {NumberConverter(profileData['beta'], 2, 1)}
                 </div>
               </div>              

@@ -91,14 +91,14 @@ const Indexes = () => {
       setLoading(true);
 
       const endPoints = [
-        'http://localhost:8000/api/dowjones',
-        'http://localhost:8000/api/sp500',
-        'http://localhost:8000/api/nasdaq'
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/dowjones`,
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/sp500`,
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/nasdaq`
       ];
 
       axios.all(endPoints.map((endPoint) => axios.get(endPoint)))
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setDowJones(response[0]['data']);
         setSP500(response[1]['data']);
         setNasdaq(response[2]['data']);

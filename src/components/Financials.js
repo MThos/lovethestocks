@@ -24,13 +24,13 @@ const Financials = () => {
       setLoading(true);
 
       const endPoints = [
-        'http://localhost:8000/api/annual',
-        'http://localhost:8000/api/quarterly'
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/annual`,
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/quarterly`
       ];
 
       axios.all(endPoints.map((endPoint) => axios.get(endPoint, { params: { symbol: active }})))
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setAnnualData(response[0]['data'][0]);
         setQuarterlyData(response[1]['data'][0]);
         setLoading(false);
@@ -80,7 +80,7 @@ const Financials = () => {
             <div className="flex flex-row gap-3 m-auto">
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">YEAR</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {
                     displayType === 'annual' ? 
                       annualData['calendarYear'] : 
@@ -90,13 +90,13 @@ const Financials = () => {
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">PERIOD</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {displayType === 'annual' ? annualData['period'] : quarterlyData['period']}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">FILING DATE</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {displayType === 'annual' ? annualData['fillingDate'] : quarterlyData['fillingDate']}
                 </div>
               </div>       
@@ -104,19 +104,19 @@ const Financials = () => {
             <div className="flex flex-row gap-3 m-auto mt-6">
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">CURRENCY</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {displayType === 'annual' ? annualData['reportedCurrency'] : quarterlyData['reportedCurrency']}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">SHARES</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {displayType === 'annual' ? NumberConverter(annualData['weightedAverageShsOut'], 1) : NumberConverter(quarterlyData['weightedAverageShsOut'], 1)}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">EBITDA</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {displayType === 'annual' ? NumberConverter(annualData['ebitda'], 2) : NumberConverter(quarterlyData['ebitda'], 2)}
                 </div>
               </div>
@@ -124,19 +124,19 @@ const Financials = () => {
             <div className="flex flex-row gap-3 m-auto mt-6">
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">REVENUE</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {displayType === 'annual' ? NumberConverter(annualData['revenue'], 2, 1) : NumberConverter(quarterlyData['revenue'], 2)}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">EPS</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {displayType === 'annual' ? annualData['eps'] : quarterlyData['eps']}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">EBITDA RATIO</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-200">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-pink-100">
                   {displayType === 'annual' ? NumberConverter(annualData['ebitdaratio'], 2) : NumberConverter(quarterlyData['ebitdaratio'], 2)}
                 </div>
               </div>            
@@ -190,19 +190,19 @@ const Financials = () => {
             <div className="flex flex-row gap-3 m-auto mt-6">
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">R&D</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['researchAndDevelopmentExpenses'], 2) : NumberConverter(quarterlyData['researchAndDevelopmentExpenses'], 2)}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">ADMIN</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['generalAndAdministrativeExpenses'], 2) : NumberConverter(quarterlyData['generalAndAdministrativeExpenses'], 2)}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">MARKETING</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['sellingAndMarketingExpenses'], 2) : NumberConverter(quarterlyData['sellingAndMarketingExpenses'], 2)}
                 </div>
               </div>
@@ -210,19 +210,19 @@ const Financials = () => {
             <div className="flex flex-row gap-3 m-auto mt-6">
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">GENERAL</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['sellingGeneralAndAdministrativeExpenses'], 2) : NumberConverter(quarterlyData['sellingGeneralAndAdministrativeExpenses'], 2)}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">OPERATING</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['operatingExpenses'], 2, 1) : NumberConverter(quarterlyData['operatingExpenses'], 2, 1)}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">COSTS</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['costAndExpenses'], 2, 1) : NumberConverter(quarterlyData['costAndExpenses'], 2, 1)}
                 </div>
               </div>
@@ -230,19 +230,19 @@ const Financials = () => {
             <div className="flex flex-row gap-3 m-auto mt-6">
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">INTEREST</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['interestExpense'], 2, 1) : NumberConverter(quarterlyData['interestExpense'], 2, 1)}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">OTHER INCOME</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['totalOtherIncomeExpensesNet'], 2, 1) : NumberConverter(quarterlyData['totalOtherIncomeExpensesNet'], 2, 1)}
                 </div>
               </div>
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">INCOME TAX</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['incomeTaxExpense'], 2, 1) : NumberConverter(quarterlyData['incomeTaxExpense'], 2, 1)}
                 </div>
               </div>
@@ -250,7 +250,7 @@ const Financials = () => {
             <div className="flex flex-row gap-3 m-auto mt-6">
               <div className="sm:w-28 md:w-40 lg:w-40 xl:w-80">
                 <div className="sm:text-md md:text-lg lg:text-xl xl:text-2xl">DEPRECIATION</div>
-                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-400">
+                <div className="sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-red-300">
                   {displayType === 'annual' ? NumberConverter(annualData['depreciationAndAmortization'], 2, 1) : NumberConverter(quarterlyData['depreciationAndAmortization'], 2, 1)}
                 </div>
               </div>

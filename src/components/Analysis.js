@@ -16,8 +16,8 @@ const Analysis = () => {
       setLoading(true);
 
       const endPoints = [
-        'http://localhost:8000/api/pricetargets',
-        'http://localhost:8000/api/pricetargetconsensus'
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/pricetargets`,
+        `${process.env.REACT_APP_NODE_ENDPOINT}/api/pricetargetconsensus`
       ];
 
       axios.all(endPoints.map((endPoint) => axios.get(endPoint, { params: { symbol: active }})))
@@ -98,11 +98,11 @@ const AnalysisList = (priceTargetsData) => {
         <div className="flex flex-row justify-center py-5">
           <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
             <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Target</div>
-            <div className={`sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl ${key['priceTarget'] < key['priceWhenPosted'] ? "text-red-400" : "text-green"}`}>${NumberConverter(key['priceTarget'], 2)}</div>
+            <div className={`sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl ${key['priceTarget'] < key['priceWhenPosted'] ? "text-red-300" : "text-green"}`}>${NumberConverter(key['priceTarget'], 2)}</div>
           </div>
           <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
             <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Date</div> 
-            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-200">{key['publishedDate'].substring(0, 10)}</div>
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-100">{key['publishedDate'].substring(0, 10)}</div>
           </div>
           <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
             <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Price</div>
@@ -112,15 +112,15 @@ const AnalysisList = (priceTargetsData) => {
         <div className="flex flex-row justify-center py-5">
           <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
             <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Name</div>
-            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-200">{key['analystName'] ? key['analystName'] : "N/A"}</div>
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-100">{key['analystName'] ? key['analystName'] : "N/A"}</div>
           </div>
           <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
             <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Publisher</div>
-            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-200">{key['newsPublisher'] ? key['newsPublisher'] : "N/A"}</div>
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-100">{key['newsPublisher'] ? key['newsPublisher'] : "N/A"}</div>
           </div>
           <div className="sm:w-32 md:w-40 lg:w-40 xl:w-80">
             <div className="sm:text-lg md:text-xl lg:text-xl xl:text-2xl uppercase">Company</div>
-            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-200">{key['analystCompany'] ? key['analystCompany'] : "N/A"}</div>
+            <div className="sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl text-pink-100">{key['analystCompany'] ? key['analystCompany'] : "N/A"}</div>
           </div>
         </div>
         <div className="flex flex-col px-4 py-5">

@@ -19,7 +19,7 @@ const News = () => {
     try {
       const options = {
         method: 'GET',
-        url: 'http://localhost:8000/api/news'
+        url: `${process.env.REACT_APP_NODE_ENDPOINT}/api/news`
       };
   
       axios.request(options).then((response) => {
@@ -48,7 +48,7 @@ const News = () => {
     return (
       <section className="fade-in">
         <div className="flex flex-col text-center font-custom font-semibold text-white">
-          <div className="text-5xl font-bold mt-4">NEWS</div>
+          <div className="text-5xl font-bold mt-7">NEWS</div>
           <div className="flex flex-row flex-wrap gap-4 justify-center mb-20">
             { NewsList(newsData) }
           </div>
@@ -72,7 +72,7 @@ const NewsList = (newsData) => {
 
   newsData.map((key) => (
     news.push(
-      <div key={counter++} className="grow shrink sm:basis-full md:basis-1/2 lg:basis-1/2 xl:basis-1/4 max-w-sm mt-10">
+      <div key={counter++} className="grow shrink sm:basis-full md:basis-1/2 lg:basis-1/2 xl:basis-1/4 max-w-xs mt-10">
         <Card className="m-5" sx={{ background: '#3709A1', border: '4px solid #fff', height: '100%' }}>
           <CardMedia
           component="img"
