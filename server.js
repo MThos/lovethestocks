@@ -47,10 +47,10 @@ try {
 }
 
 // STOCK LIST
-app.get('/api/stocklist', (req) => {
+app.get('/api/stocklist', (req, res) => {
   const STOCKLIST_CACHE_TIME = 1000 * 60 * 60 * 24;; // 60 minutes
-  const STOCKLIST_ENDPOINT = `https://financialmodelingprep.com/api/v3/available-traded/list?apikey=${API_KEY}`;
-  cachedStockList('stocklist', req, STOCKLIST_ENDPOINT, STOCKLIST_CACHE_TIME);
+  const STOCKLIST_ENDPOINT = `https://financialmodelingprep.com/api/v3/stock-screener?marketCapMoreThan=1&volumeMoreThan=1&isActivelyTrading=true&isEtf=false&exchange=NASDAQ,NYSE,AMEX,TSX,EURONEXT&apikey=${API_KEY}`;
+  cachedStockList('stocklist', req, res, STOCKLIST_ENDPOINT, STOCKLIST_CACHE_TIME);
 })
 
 // PROFILE
@@ -310,7 +310,7 @@ function cachedTickerData(type, req, res, end_point, cache_time) {
 }
 
 // does not require a symbol to be passed
-function cachedStockList(type, req, end_point, cache_time) {
+function cachedStockList(type, req, res, end_point, cache_time) {
   try {
     db.collection(type).countDocuments(
       {
@@ -349,6 +349,13 @@ function cachedStockList(type, req, end_point, cache_time) {
           console.log(error); 
         });
       } else {
+        db.collection(type).find().forEach((response) => {
+          if (response[type]) {
+            //console.log(response[type]);
+            res.json(response[type]);
+          }
+        });
+
         console.log(`Database request (${type}) -> ${new Date().toUTCString()} -> Client: ${req.socket.remoteAddress}`);
       }
     });    
