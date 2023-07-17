@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import GlobalTheme from './components/GlobalTheme';
@@ -13,13 +14,26 @@ import Error from './components/Error';
 
 const App = () => {
   const [active, setActive] = useState('AAPL');
+  const [stockList, setStockList] = useState([]);
 
   useEffect(() => {
     try {
+      const options = {
+        method: 'GET',
+        url: `${process.env.REACT_APP_NODE_ENDPOINT}/api/stocklist`,
+      };
+  
+      axios.request(options).then((response) => {      
+        //console.log(response.data);
+        setStockList(response.data);
+      }).catch((error) => {
+        console.log(error);
+      });
+      
       if (localStorage.getItem('active') === null) {
         localStorage.setItem('active', active);
         setActive(localStorage.getItem('active'));
-      };
+      };      
     } catch (error) {
       console.log(error);
     }    
@@ -29,7 +43,7 @@ const App = () => {
     <ThemeProvider theme={GlobalTheme}>
       <div className="App flex flex-col min-h-screen">
         <BrowserRouter>
-          <Header />
+          <Header stockList={stockList} />
           <Routes>
             <Route path="/" element={<Indexes />} />
             <Route path="/indexes" element={<Indexes />} />
