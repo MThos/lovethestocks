@@ -1,4 +1,4 @@
-import React, { useState } from "react";  
+import React, { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
@@ -11,9 +11,10 @@ import { ThemeProvider } from "@emotion/react";
 import { Link } from "react-router-dom";
 import GlobalTheme from './GlobalTheme'
 
-const Header = () => {
+const Header = (props) => {
   // eslint-disable-next-line
   const [active, setActive] = useState('');
+  const stockList = props.stockList;
 
   // nav links
   const [anchorNavEl, setAnchorNavEl] = React.useState(null);
@@ -33,26 +34,20 @@ const Header = () => {
 
   const handleSearchClick = (e) => {
     setAnchorSearchEl(e.currentTarget);
+
   };
 
   const handleSearchClose = () => {
     setAnchorSearchEl(null);
   };
 
-  const ticker_list = [
-    { symbol: 'AAPL', company: 'Apple' },
-    { symbol: 'MSFT', company: 'Microsoft' },
-    { symbol: 'KO', company: 'Coca Cola' },
-    { symbol: 'NVDA', company: 'Nvidia Corporation' },
-  ];
-
   const symbols = {
-    options: ticker_list.map((option) => option.symbol + ' : ' + option.company),
+    options: stockList.map((option) => option.symbol + ' : ' + option.companyName),
   };
 
   return (
     <div className="bg-purple-700 border-b-8 border-purple-600 text-purple-200 flex flex-row items-center justify-between">
-      <img className="w-16 ml-2" src="images/lovethestocks-min.png" alt="logo" />
+      <img className="w-16 ml-2" src={`${process.env.PUBLIC_URL}/images/lovethestocks-min.png`} alt="logo" />
 
       <Button
         id="nav-button"
@@ -85,13 +80,13 @@ const Header = () => {
             'aria-labelledby': 'nav-menu', 
           }}
         >
-          <MenuItem onClick={handleNavClose}><Link to="/news">Latest News</Link></MenuItem>
-          <MenuItem onClick={handleNavClose}><Link to="/indexes">Index List</Link></MenuItem>
+          <Link to="/news"><MenuItem onClick={handleNavClose}>Latest News</MenuItem></Link>
+          <Link to="/indexes"><MenuItem onClick={handleNavClose}>Index List</MenuItem></Link>
           <MenuItem onClick={handleNavClose}>Charts</MenuItem>
-          <MenuItem onClick={handleNavClose}><Link to="/details">Details</Link></MenuItem>
-          <MenuItem onClick={handleNavClose}><Link to="/financials">Financials</Link></MenuItem>
-          <MenuItem onClick={handleNavClose}><Link to="/analysis">Analysis</Link></MenuItem>
-          <MenuItem onClick={handleNavClose}><Link to="/company">Company</Link></MenuItem>
+          <Link to="/details"><MenuItem onClick={handleNavClose}>Details</MenuItem></Link>
+          <Link to="/financials"><MenuItem onClick={handleNavClose}>Financials</MenuItem></Link>
+          <Link to="/analysis"><MenuItem onClick={handleNavClose}>Analysis</MenuItem></Link>
+          <Link to="/company"><MenuItem onClick={handleNavClose}>Company</MenuItem></Link>
         </Menu>
       </ThemeProvider>
 
@@ -134,6 +129,11 @@ const Header = () => {
                     localStorage.setItem('active', ticker);
                     setActive(ticker.toUpperCase());
                     window.location.reload(false);
+                    if (window.location.href.includes("localhost")) {
+                      window.location.replace("http://localhost:3000/company");
+                    } else {
+                      window.location.replace("http://www.lovethestocks.com/company");
+                    }
                   }
                 }}
                 {...symbols}
