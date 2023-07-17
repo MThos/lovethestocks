@@ -7,9 +7,7 @@ body, html {
 }
 
 .App {
-  background-image: url('images/purple-bg-1-min.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
+  background: rgb(15, 15, 15);
 }
 
 .fade-in {
